@@ -8,4 +8,4 @@ def download_and_extract(folder: Optional[Path] = None) -> None:
     """Will download and extract dataset"""
     c10_repo = Cifar10Repository(folder=folder)
     fp = c10_repo.download()
-    c10_repo.extract(fp)
+    c10_repo.extract(fp, dest=folder)

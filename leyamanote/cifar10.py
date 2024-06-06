@@ -38,10 +38,11 @@ class Cifar10Repository:
         LOGGER.info(f"Finished downloading cifar10 dataset '{self._folder}'")
         return fp
 
-    def extract(self, fp: Path) -> None:
+    def extract(self, fp: Path, dest: Optional[Path] = None) -> None:
         LOGGER.info(f"Unzipping '{fp}'")
+        destination = dest or fp.parent
         with tarfile.open(fp) as f:
-            f.extractall(fp.parent)
+            f.extractall(destination)
         LOGGER.info(f"Done unzipping '{fp}'")
 
     def load_batch(self, fp_batch: Path) -> Data:
