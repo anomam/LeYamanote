@@ -19,10 +19,13 @@ dependencies = [
 test = [
 	"isort",
 	"black",
+	"flake8",
 	"mypy",
 	"pytest",
 	"types-requests",
 	"pre-commit",
+	"nox",
+	"doit",
 ]
 
 [build-system]

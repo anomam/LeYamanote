@@ -1,8 +1,10 @@
 .mypy_cache/
 __pycache__/
+build/
 .pytest_cache/
 .envrc
 .vimrc.lua
 requirements-pylsp.txt
 *egg-info/
 data/
+.doit.db
