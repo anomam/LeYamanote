@@ -1,0 +1,30 @@
+repos:
+- repo: https://github.com/pycqa/isort
+  rev: 5.13.2
+  hooks:
+  - id: isort
+    name: isort
+    args: ["--settings-file", "./pyproject.toml"]
+- repo: https://github.com/psf/black
+  rev: 24.4.2
+  hooks:
+  - id: black
+    name: black
+    args: ["--config", "./pyproject.toml"]
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: v2.2.3
+  hooks:
+  - id: flake8
+    name: flake8
+- repo: https://github.com/pre-commit/mirrors-mypy
+  rev: v1.10.0
+  hooks:
+  - id: mypy
+    name: mypy
+    entry: mypy
+    args: ["--config-file=./pyproject.toml", "leyamanote", "tests"]
+    pass_filenames: false
+    additional_dependencies:
+      - types-requests
+      - numpy
+      - pytest
