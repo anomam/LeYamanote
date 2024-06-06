@@ -1,3 +1,4 @@
+import tarfile
 from pathlib import Path
 from typing import Optional
 
@@ -18,7 +19,7 @@ class Cifar10Repository:
     def __init__(self, folder: Optional[Path] = None) -> None:
         self._folder = folder or DIR_CIFAR10
 
-    def download(self) -> None:
+    def download(self) -> Path:
         LOGGER.info(f"Downloading dataset into '{self._folder}'")
         fp = self._folder / self.tar_filename
         if not fp.exists():
@@ -28,3 +29,10 @@ class Cifar10Repository:
                 with fp.open("wb") as f:
                     f.write(resp.content)
         LOGGER.info(f"Finished downloading cifar10 dataset '{self._folder}'")
+        return fp
+
+    def extract(self, fp: Path) -> None:
+        LOGGER.info(f"Unzipping '{fp}'")
+        with tarfile.open(fp) as f:
+            f.extractall(fp.parent)
+        LOGGER.info(f"Done unzipping '{fp}'")
