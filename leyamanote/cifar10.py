@@ -1,13 +1,20 @@
+import pickle
 import tarfile
 from pathlib import Path
-from typing import Optional
+from typing import NamedTuple, Optional
 
+import numpy as np
 import requests
 
 from leyamanote import DIR_DATA, LOGGER
 
 
 DIR_CIFAR10 = DIR_DATA / "cifar10/"
+
+
+class Data(NamedTuple):
+    X: np.ndarray
+    y: np.ndarray
 
 
 class Cifar10Repository:
@@ -36,6 +43,28 @@ class Cifar10Repository:
         with tarfile.open(fp) as f:
             f.extractall(fp.parent)
         LOGGER.info(f"Done unzipping '{fp}'")
+
+    def load_batch(self, fp_batch: Path) -> Data:
+        """Load single batch file:
+        - format is pickle
+        - each batch has 10000 examples
+        - each example image has 3 channels
+        - each example is an image of size 32x32 pixels
+
+        If idx is None, will load test batch, otherwise will use
+        train batches.
+        """
+
+        with fp_batch.open("rb") as f:
+            datadict = pickle.load(f, encoding="latin1")
+            X: np.ndarray = datadict["data"]
+            y: np.ndarray = np.array(datadict["labels"])
+            X = (
+                X.reshape(10000, 3, 32, 32)  # correct formatting
+                .transpose(0, 2, 3, 1)  # reorganize the channels
+                .astype("float")  # because int8 otherwise
+            )
+        return Data(X, y)
 
     def fp_train_batch(self, idx: int) -> Path:
         if not (1 <= idx <= 5):
