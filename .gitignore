@@ -1,0 +1,4 @@
+.envrc
+.vimrc.lua
+requirements-pylsp.txt
+*egg-info/

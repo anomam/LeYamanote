@@ -1,0 +1,42 @@
+[project]
+name = "leyamanote"
+description = "Python testing"
+authors = [{name = "JR"}]
+readme = "README.md"
+license = { text = "proprietary" }
+requires-python = ">=3.10"
+maintainers = [
+	{name = "JR"}
+]
+version = "0.1.0"
+dependencies = [
+	"numpy",
+	"ipython",
+]
+
+[build-system]
+requires = ["setuptools >= 61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["leyamanote"]
+
+[tool.mypy]
+follow_imports = "silent"
+ignore_missing_imports = true
+show_error_codes = true
+plugins = "pydantic.mypy"
+
+[tool.black]
+line-length = 120
+
+[tool.isort]
+ensure_newline_before_comments = true
+force_grid_wrap = 0
+include_trailing_comma = true
+line_length = 120
+lines_after_imports = 2
+multi_line_output = 3
+profile = "black"
+use_parentheses = true
+src_paths = ["leyamanote"]
