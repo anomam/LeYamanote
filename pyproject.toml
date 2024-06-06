@@ -12,6 +12,16 @@ version = "0.1.0"
 dependencies = [
 	"numpy",
 	"ipython",
+	"requests"
+]
+
+[project.optional-dependencies]
+test = [
+	"isort",
+	"black",
+	"mypy",
+	"pytest",
+	"types-requests",
 ]
 
 [build-system]
@@ -23,9 +33,7 @@ packages = ["leyamanote"]
 
 [tool.mypy]
 follow_imports = "silent"
-ignore_missing_imports = true
 show_error_codes = true
-plugins = "pydantic.mypy"
 
 [tool.black]
 line-length = 120
@@ -39,4 +47,4 @@ lines_after_imports = 2
 multi_line_output = 3
 profile = "black"
 use_parentheses = true
-src_paths = ["leyamanote"]
+src_paths = ["leyamanote", "tests"]
