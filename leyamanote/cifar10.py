@@ -68,8 +68,6 @@ class Cifar10Repository:
         return Data(X, y)
 
     def fp_train_batch(self, idx: int) -> Path:
-        if not (1 <= idx <= 5):
-            raise ValueError(f"Batch index is incorrect: '{idx}'")
         return self._folder / self.subfolder_name / f"data_batch_{idx}"
 
     @property
